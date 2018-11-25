@@ -1,3 +1,4 @@
+const LivroDAO = require('../infra/livro-dao');
 const db = require('../../config/database');      // Importa o arquivo database.js
 
 module.exports = (app) => {
@@ -16,7 +17,10 @@ module.exports = (app) => {
   });
   
   app.get('/livros', function (req, res) {
-    db.all('SELECT * FROM livros', function(erro, resultados){
+
+    const livroDAO = new LivroDAO(db);
+
+    livroDAO.lista(function(erro, resultados) {
       res.marko(
         require('../views/livros/lista/lista.marko'),
         {
@@ -25,6 +29,17 @@ module.exports = (app) => {
       );
 
     });
+
+
+    /* db.all('SELECT * FROM livros', function(erro, resultados){
+      res.marko(
+        require('../views/livros/lista/lista.marko'),
+        {
+          livros: resultados
+        }
+      );
+
+    }); */
 
   });
 }
