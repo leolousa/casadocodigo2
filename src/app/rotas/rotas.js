@@ -36,7 +36,11 @@ module.exports = (app) => {
 
   app.post('/livros', function(req, res) {
     console.log(req.body);
-    
+    const livroDAO = new LivroDAO(db);
+
+    livroDAO.adiciona(req.body)
+            .then(res.redirect('/livros'))
+            .catch(erro => console.log(erro));
   });
  
 };
