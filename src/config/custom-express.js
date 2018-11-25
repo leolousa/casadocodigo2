@@ -3,6 +3,11 @@ require('marko/express');                     // Importa o módulo do Marko para
 
 const express = require('express');           // Importa o Express
 const app = express();                        // Atribui o Express a variável app
+const bodyParser = require('body-parser');    // Importa o o Body Parser
+
+app.use(bodyParser.urlencoded({
+  extended: true                              // Habilita o bodyParser a receber objetos complexos em formato Json
+}));
 
 const rotas = require('../app/rotas/rotas');  // Importa o nosso módulo de rotas
 
